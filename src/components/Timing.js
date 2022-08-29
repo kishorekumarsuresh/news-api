@@ -3,6 +3,21 @@ import axios from 'axios'
 import React from 'react'
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css'
+import { makeStyles } from '@mui/styles';
+import { ClassNames } from '@emotion/react'
+
+const useStyles = makeStyles((theme)=>({
+
+    mainDiv:{
+
+        display:'flex',alignItems:'center',marginTop:15,
+        [theme.breakpoints.down('sm')]:{
+            display:'none',
+        },
+    },
+
+}))
+
 
 function Timing({search, fromDate, setFromDate, toDate, setToDate, setNewsItem,setPageLoader}) {
 
@@ -43,6 +58,8 @@ function Timing({search, fromDate, setFromDate, toDate, setToDate, setNewsItem,s
 
     }
 
+    const classes = useStyles();
+
   return (
     // <div style={{dsiplay:'flex',flexDirection:'row'}}>
     //     <div style={{display:'grid'}}>
@@ -73,21 +90,26 @@ function Timing({search, fromDate, setFromDate, toDate, setToDate, setNewsItem,s
         
         
     // </div>
-    <div style={{display:'grid'}}>
-         from date
+    <div>
+    <div className={classes.mainDiv} >
+        <label style={{display:'flex',}}>
+        from date
       <input type="date" 
         name="fromDate"
         value={fromDate}
         onChange={handleTiming} />
-         to date
+        </label>
+    <label style={{marginLeft:4}}>
+        to date 
       <input type="date" 
+      style={{marginLeft:2}}
       name="toDate"
       value={toDate}
         onChange={handleTiming}/>
-
-        <Button  variant="contained"  onClick={showDetails}>Go</Button>
+    </label>
+        <Button  sx={{height:22,marginLeft:1}} variant="contained"  onClick={showDetails}>Go</Button>
     </div>
-    
+    </div>
   )
 }
 

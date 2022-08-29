@@ -8,10 +8,42 @@ import Sorting from './Sorting'
 import Language from './Language'
 import Timing from './Timing'
 import { CircularProgress ,Typography ,Backdrop} from '@mui/material'
-//import Language from './Language'
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme)=>({
+
+    search:{
+      display:'none',
+    },
+    div1:{
+      backgroundColor:'khaki',
+    },
+    div2:{
+      display:'flex',
+      justifyContent:'space-between',marginRight:20,
+      backgroundColor:'khaki',alignItems:'center',
+      [theme.breakpoints.down('sm')]:{
+        display:'none',
+      },
+      [theme.breakpoints.down('md')]:{
+        display:'grid',
+      }
+    },
+    div3:{
+      display:'flex',justifyContent:'space-between',
+      [theme.breakpoints.down('sm')]:{
+        display:'flex',
+        justifyContent:'space-evenly',
+        marginRight:4
+      }
+    }
 
 
-function HomePage({setDescription,description,setLog}) {
+}))
+
+
+function HomePage({setLog,setTitle, setDescription, 
+  setContent, setImageUrl,setPublished,setUrl}) {
 
     const [newsItem , setNewsItem] = useState([])
     const [filterValue,setFilterValue] = useState("")
@@ -29,7 +61,7 @@ function HomePage({setDescription,description,setLog}) {
 
 
     useEffect(()=>{
-        axios.get(`https://newsapi.org/v2/everything?q=tesla&from=2022-07-25&sortBy=publishedAt&apiKey=${process.env.REACT_APP_API_KEY}`)
+        axios.get(`https://newsapi.org/v2/everything?q=tesla&from=2022-07-29&sortBy=publishedAt&apiKey=${process.env.REACT_APP_API_KEY}`)
         
         .then((resp)=>{
             console.log("response",resp.data.articles)
@@ -43,6 +75,10 @@ function HomePage({setDescription,description,setLog}) {
 
     },[])
 
+
+
+
+    const classes = useStyles()
 
   return (
     <>
@@ -65,24 +101,27 @@ function HomePage({setDescription,description,setLog}) {
       </div>
       :
       <div>
-      <Categories setPageLoader={setPageLoader} setButton={setButton} filterValue={filterValue} setNewsItem={setNewsItem}  />
+      <Categories button={button} setPageLoader={setPageLoader} setButton={setButton} filterValue={filterValue} setNewsItem={setNewsItem}  />
       
-      <div style={{backgroundColor:'khaki'}}>
-      <div style={{display:'flex',justifyContent:'space-between',marginRight:20,backgroundColor:'khaki'}}>
-      <Searching setPageLoader={setPageLoader} search={search} setSearch={setSearch} setNewsItem={setNewsItem}/>
+      <div className={classes.div1} >
+      <div className={classes.div2} >
+      <Searching  className={classes.search} setPageLoader={setPageLoader} search={search} setSearch={setSearch} setNewsItem={setNewsItem}/>
       <Timing setPageLoader={setPageLoader} filterValue={filterValue} fromDate={fromDate} search={search} setFromDate={setFromDate} toDate={toDate} setToDate={setToDate} setNewsItem={setNewsItem}/>
       </div>
       
       <br/>
-      <div style={{display:'flex',justifyContent:'space-between'}}>
+      <div className={classes.div3}>
       <Sorting setPageLoader={setPageLoader} sort={sort} setSort={setSort} setNewsItem={setNewsItem}/>
       <Language setPageLoader={setPageLoader} lang={lang} setLang={setLang} setNewsItem={setNewsItem} />
       <Filters setPageLoader={setPageLoader} button={button} filterValue={filterValue} setFilterValue={setFilterValue} setNewsItem={setNewsItem}/>
       </div>
       
       <br/>
-      <DisplayNews loading={loading} newsItem={newsItem} description={description} setLog={setLog} 
-      setDescription={setDescription} setPageLoader={setPageLoader} pageLoader={pageLoader}/>
+      <DisplayNews loading={loading} newsItem={newsItem}  setLog={setLog} 
+       setPageLoader={setPageLoader} pageLoader={pageLoader}
+       setTitle={setTitle} setDescription={setDescription} 
+      setContent={setContent} setImageUrl={setImageUrl} setUrl={setUrl} setPublished={setPublished}
+       />
       </div>
       </div>
       

@@ -1,6 +1,47 @@
 import React from 'react'
 import {  FormControl ,MenuItem ,Select ,Typography} from '@mui/material'
 import axios from 'axios'
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme)=>({
+
+  mainDiv:{
+    display:'grid',alignItems:'center'
+  },
+  formcontrol:{
+    width:220,
+    [theme.breakpoints.up('sm')]:{
+      width:140,
+    },
+    [theme.breakpoints.down('md')]:{
+      width:140,
+    },
+
+    [theme.breakpoints.up('md')]:{
+      width:180,
+    },
+
+    backgroundColor:'ButtonFace'},
+  select:{
+    height:40,boxShadow:3
+  },
+  typo1:{
+    display:'none',
+    [theme.breakpoints.down('md')]:{
+     display:'block'
+    }
+  },
+  typo:{
+    display:'block',
+    [theme.breakpoints.down('md')]:{
+      display:'none'
+     }
+  }
+
+
+
+}))
+
 function Language({lang, setLang, setNewsItem,setPageLoader}) {
 
   
@@ -18,13 +59,19 @@ function Language({lang, setLang, setNewsItem,setPageLoader}) {
             console.log("language api fails",err)
         })
     }
+
+    const classes = useStyles()
+
   return (
     
-    <div style={{display:'flex'}}>
-      <Typography variant='h6'>Select Language</Typography>
-        <FormControl sx={{width:220,backgroundColor:'ButtonFace'}}>
+    <div  className={classes.mainDiv} >
+      <Typography variant='h6' className={classes.typo}>Select Language</Typography>
+      <Typography variant='body1' className={classes.typo1}>select language</Typography>
+        <FormControl  className={classes.formcontrol} >
         
         <Select
+        sx={{boxShadow:3}}
+        className={classes.select}
         value={lang}
         onChange={handleLanguage}>
 

@@ -1,6 +1,45 @@
-import {  FormControl ,MenuItem ,Select ,Typography} from '@mui/material'
+import {  FormControl ,InputLabel,MenuItem ,Select ,Typography} from '@mui/material'
 import axios from 'axios'
 import React from 'react'
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme)=>({
+
+  mainDiv:{
+    display:'grid',alignItems:'center'
+  },
+  formcontrol:{
+    width:220,backgroundColor:"ButtonFace",
+    [theme.breakpoints.up('sm')]:{
+      width:140,
+    },
+    [theme.breakpoints.down('md')]:{
+      width:140,
+    },
+
+    [theme.breakpoints.up('md')]:{
+      width:180,
+    },
+  },
+  select:{
+    height:40,
+  },
+  typo1:{
+    display:'none',
+    [theme.breakpoints.down('md')]:{
+     display:'block'
+    }
+  },
+  typo:{
+    display:'block',
+    [theme.breakpoints.down('md')]:{
+      display:'none'
+     }
+  }
+
+
+}))
+
 
 
  function Filters({setNewsItem,filterValue,setFilterValue,button,setPageLoader}) {
@@ -25,16 +64,18 @@ import React from 'react'
     }
 
    
-
+    const classes = useStyles()
 
 
   return (
-    <div style={{display:'flex'}}>
+    <div  className={classes.mainDiv} >
           
-        <Typography variant='h6'>Choose the country</Typography>
-        <FormControl sx={{width:220,backgroundColor:"ButtonFace",}}>
-        
+        <Typography variant='h6' className={classes.typo}>Choose the country</Typography>
+        <Typography variant='body1' className={classes.typo1}>select country</Typography>
+        <FormControl className={classes.formcontrol} >
         <Select
+        className={classes.select}
+        sx={{boxShadow:3}}
         value={filterValue}
         onChange={handleChange}>
 

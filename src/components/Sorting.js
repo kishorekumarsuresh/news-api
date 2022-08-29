@@ -1,6 +1,57 @@
 import { FormControl,Typography, MenuItem, Select} from '@mui/material'
 import axios from 'axios'
 import React from 'react'
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme)=>({
+
+  mainDiv:{
+    //display:'grid',
+    alignItems:'center',marginLeft:3,
+    
+
+    [theme.breakpoints.down('sm')]:{
+      display:'none'
+    },
+    [theme.breakpoints.up('md')]:{
+      display:'grid'
+    },
+    // [theme.breakpoints.down('md')]:{
+    //   display:'flex'
+    // }
+
+
+  },
+  formControl:{
+
+    [theme.breakpoints.up('sm')]:{
+      width:100,
+    },
+
+    [theme.breakpoints.up('md')]:{
+      width:180,
+    },
+
+    backgroundColor:"ButtonFace"
+  },
+  Select:{
+    height:40,
+    boxShadow:3
+  },
+  Typo:{
+    display:'block',
+    [theme.breakpoints.down('md')]:{
+      display:'none'
+    },
+
+  },
+  Typo1:{
+    display:'none',
+    [theme.breakpoints.down('md')]:{
+     display:'block'
+    }
+  }
+}))
 
 function Sorting({sort,setSort,setNewsItem,setPageLoader}) {
 
@@ -20,16 +71,21 @@ function Sorting({sort,setSort,setNewsItem,setPageLoader}) {
         })
     }
     
+    const classes = useStyles();
+
   return (
     <div>
       
       
-      <div style={{display:'flex'}}>
+      <div className={classes.mainDiv}>
           
-          <Typography variant='h6'>Sort By</Typography>
-          <FormControl sx={{width:220,backgroundColor:"ButtonFace"}}>
+          <Typography variant='h6' className={classes.Typo}>Sort By </Typography>
+          <Typography variant='body1' className={classes.Typo1}>sort By </Typography>
+          <FormControl className={classes.formControl}>
           
           <Select
+            className={classes.Select}
+            sx={{boxShadow:3,}}
             value={sort}
             onChange={handleSorting}>
   
