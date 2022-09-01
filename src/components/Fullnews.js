@@ -1,18 +1,18 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState ,useContext } from 'react'
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css'
 import { Link, useNavigate } from 'react-router-dom'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { makeStyles } from '@mui/styles';
 import { ClassNames } from '@emotion/react'
+import { ValueContext } from './ValueContext'
 
 
 const useStyles = makeStyles((theme)=>({
 
   mainDiv:{
-    // display:'block',alignItems:'center',justifyContent:'center',
-    // //display:'block',
+    backgroundColor:'yellow !important',
     [theme.breakpoints.down('md')]:{
       display:'grid',
     }
@@ -26,22 +26,31 @@ const useStyles = makeStyles((theme)=>({
       width:300
     },
     
+  },
+  card:{
+    backgroundColor:'green !important',
+    backgroundColor:'silver !important',
+    //backgroundColor:'chocolate !important',
+
   }
 }))
-function Date({title,description,imageUrl,published,content,url}) {
+
+
+function Fullnews({}) {
 
   const classes = useStyles(); 
   const nav = useNavigate();
+  const {title,description,imageUrl,published,content,url} = useContext(ValueContext)
 
   return (
     <div  className={classes.mainDiv} >
-    <Card  sx={{backgroundColor:'silver'}}>
+    <Card  className={classes.card} >
      
      <CardContent>
       <div className={classes.div2} >
       
       { (imageUrl)?
-        <img src={imageUrl} height='200px' width='300px' alt='picture'/> :
+        <img src={imageUrl} height='300px' width='460px' alt='picture'/> :
         <img src='/img/background.jpg' height='300px' width='460px' alt='picture'/>
 
       }
@@ -62,4 +71,4 @@ function Date({title,description,imageUrl,published,content,url}) {
   )
 }
 
-export default Date
+export default Fullnews

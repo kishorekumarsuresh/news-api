@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme)=>({
     },
 
     backgroundColor:'ButtonFace'},
-  select:{
-    height:40,boxShadow:3
-  },
+  
   typo1:{
     display:'none',
     [theme.breakpoints.down('md')]:{
@@ -36,20 +34,24 @@ const useStyles = makeStyles((theme)=>({
     [theme.breakpoints.down('md')]:{
       display:'none'
      }
+  },
+  select:{
+    boxShadow:'1px 1px 1px 1px grey',
+    height:'40px'
   }
 
 
 
 }))
 
-function Language({lang, setLang, setNewsItem,setPageLoader}) {
+function Language({lang, setLang, setNewsItem,setPageLoader,button,filterValue,search}) {
 
   
     const handleLanguage = (e) =>{
 
         setLang(e.target.value)
         setPageLoader(true)
-        axios.get(`https://newsapi.org/v2/top-headlines?language=${e.target.value}&apiKey=${process.env.REACT_APP_API_KEY}`)
+        axios.get(`https://newsapi.org/v2/top-headlines?q=${search}&language=${e.target.value}&country=${filterValue}&category=${button}&apiKey=${process.env.REACT_APP_API_KEY}`)
         .then(response=>{
             setNewsItem(response.data.articles)
             setPageLoader(false)
@@ -70,12 +72,11 @@ function Language({lang, setLang, setNewsItem,setPageLoader}) {
         <FormControl  className={classes.formcontrol} >
         
         <Select
-        sx={{boxShadow:3}}
         className={classes.select}
         value={lang}
         onChange={handleLanguage}>
 
-            <MenuItem value="en">English</MenuItem>
+            <MenuItem value="en" selected>English</MenuItem>
             <MenuItem value="fr">French</MenuItem>
             <MenuItem value="it">Italian</MenuItem>
             <MenuItem value="pt">Portuguese</MenuItem>

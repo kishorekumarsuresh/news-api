@@ -6,8 +6,9 @@ import LoginPage from './components/LoginPage';
 import Header from './components/Header';
 import PageNotFound from './components/PageNotFound';
 import ErrorBoundary from './components/ErrorBoundary';
-import Date from './components/Date';
+import Fullnews from './components/Fullnews';
 import Breakpoints from './components/Breakpoints';
+import { ValueContext } from './components/ValueContext';
 
 function App() {
   
@@ -24,20 +25,21 @@ function App() {
     <>
     <ErrorBoundary>
     <Header log={log} setLog={setLog} setLocal={setLocal} local={local}/>
+    <ValueContext.Provider value={{setTitle,setLog,setDescription,setContent,setImageUrl,setUrl,setPublished,
+    title,description,imageUrl,url,published,content}}>
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<LoginPage log={log} setLog={setLog} setLocal={setLocal}/>}/>
-      <Route path='/home' element={<HomePage local={local}  setLog={setLog}
-      setTitle={setTitle} setDescription={setDescription} 
-      setContent={setContent} setImageUrl={setPublished} setUrl={setUrl} setPublished={setPublished}
-      />}/>
-      <Route path='/fullnews' element={<Date title={title} description={description}
-      imageUrl={imageUrl} url={url} published={published} content={content}
-      />}/>
+      <Route path='/' element={<LoginPage log={log} setLog={setLog}/>}/>
+      
+      <Route path='/home' element={<HomePage />}/>
+      
+      <Route path='/fullnews' element={<Fullnews  />}/>
+
       <Route path='/test' element={<Breakpoints/>}/>
       <Route path='*' element={<PageNotFound/>}/>
     </Routes>
     </BrowserRouter>
+    </ValueContext.Provider>
     </ErrorBoundary>
     </>
       );

@@ -2,6 +2,7 @@ import { FormControl,Typography, MenuItem, Select} from '@mui/material'
 import axios from 'axios'
 import React from 'react'
 import { makeStyles } from '@mui/styles';
+//import { shadows } from '@mui/system';
 
 const useStyles = makeStyles((theme)=>({
 
@@ -16,11 +17,6 @@ const useStyles = makeStyles((theme)=>({
     [theme.breakpoints.up('md')]:{
       display:'grid'
     },
-    // [theme.breakpoints.down('md')]:{
-    //   display:'flex'
-    // }
-
-
   },
   formControl:{
 
@@ -34,10 +30,12 @@ const useStyles = makeStyles((theme)=>({
 
     backgroundColor:"ButtonFace"
   },
+
   Select:{
     height:40,
-    boxShadow:3
+    boxShadow:'1px 1px 1px 1px grey'
   },
+
   Typo:{
     display:'block',
     [theme.breakpoints.down('md')]:{
@@ -53,14 +51,15 @@ const useStyles = makeStyles((theme)=>({
   }
 }))
 
-function Sorting({sort,setSort,setNewsItem,setPageLoader}) {
+function Sorting({sort,setSort,setNewsItem,setPageLoader,fromDate,toDate,search}) {
 
   
     const handleSorting = (e) => {
          
         setSort(e.target.value)
         setPageLoader(true)
-        axios.get(`https://newsapi.org/v2/everything?q=tesla&sortBy=${e.target.value}&apiKey=${process.env.REACT_APP_API_KEY}`)
+        if (search==="" && fromDate ==="" && toDate===""){
+          axios.get(`https://newsapi.org/v2/everything?q=apple&from=30-08-2022&to=30-08-2022&sortBy=${sort}&apiKey=${process.env.REACT_APP_API_KEY}`)
         .then(response=>{
             setNewsItem(response.data.articles)
             setPageLoader(false)
@@ -69,6 +68,31 @@ function Sorting({sort,setSort,setNewsItem,setPageLoader}) {
         .catch(err=>{
             console.log(err)
         })
+        }
+
+        else if (search===""){
+          axios.get(`https://newsapi.org/v2/everything?q=apple&from=${fromDate}&to=${toDate}&sortBy=${sort}&apiKey=${process.env.REACT_APP_API_KEY}`)
+        .then(response=>{
+            setNewsItem(response.data.articles)
+            setPageLoader(false)
+            console.log("success sorting")
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+        }
+        else{
+          axios.get(`https://newsapi.org/v2/everything?q=${search}&from=${fromDate}&to=${toDate}&sortBy=${sort}&apiKey=${process.env.REACT_APP_API_KEY}`)
+        .then(response=>{
+            setNewsItem(response.data.articles)
+            setPageLoader(false)
+            console.log("success sorting")
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+        }
+        
     }
     
     const classes = useStyles();
@@ -85,7 +109,6 @@ function Sorting({sort,setSort,setNewsItem,setPageLoader}) {
           
           <Select
             className={classes.Select}
-            sx={{boxShadow:3,}}
             value={sort}
             onChange={handleSorting}>
   
