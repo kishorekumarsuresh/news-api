@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme)=>({
 
   mainDiv:{
     //display:'grid',
-    alignItems:'center',marginLeft:3,
+    alignItems:'center',marginLeft:'13px',
     
 
     [theme.breakpoints.down('sm')]:{

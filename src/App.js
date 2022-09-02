@@ -9,6 +9,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Fullnews from './components/Fullnews';
 import Breakpoints from './components/Breakpoints';
 import { ValueContext } from './components/ValueContext';
+import FiltComp from './components/FiltComp';
 
 function App() {
   
@@ -36,6 +37,7 @@ function App() {
       <Route path='/fullnews' element={<Fullnews  />}/>
 
       <Route path='/test' element={<Breakpoints/>}/>
+      <Route path='/filter' element={<FiltComp/>}/>
       <Route path='*' element={<PageNotFound/>}/>
     </Routes>
     </BrowserRouter>

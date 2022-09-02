@@ -97,6 +97,7 @@ function Timing({lang,search,filterValue, fromDate, setFromDate, toDate, setToDa
         <label style={{display:'flex',}}>
         from date
       <input type="date" 
+      style={{marginLeft:2}}
         name="fromDate"
         value={fromDate}
         onChange={handleTiming} />

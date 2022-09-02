@@ -9,6 +9,7 @@ import Language from './Language'
 import Timing from './Timing'
 import { CircularProgress, Typography, Backdrop } from '@mui/material'
 import { makeStyles } from '@mui/styles';
+import FiltComp from './FiltComp'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -118,7 +119,8 @@ function HomePage() {
                 <Sorting search={search} filterValue={filterValue} button={button} setPageLoader={setPageLoader}
                   fromDate={fromDate} toDate={toDate} sort={sort} setSort={setSort} setNewsItem={setNewsItem} />
                 <Language search={search} filterValue={filterValue} button={button} setPageLoader={setPageLoader} lang={lang} setLang={setLang} setNewsItem={setNewsItem} />
-                <Filters search={search} setPageLoader={setPageLoader} button={button} filterValue={filterValue} setFilterValue={setFilterValue} setNewsItem={setNewsItem} />
+                {/* <Filters search={search} setPageLoader={setPageLoader} button={button} filterValue={filterValue} setFilterValue={setFilterValue} setNewsItem={setNewsItem} /> */}
+                <FiltComp search={search} setPageLoader={setPageLoader} button={button} filterValue={filterValue} setFilterValue={setFilterValue} setNewsItem={setNewsItem} />
               </div>
 
               <br />
